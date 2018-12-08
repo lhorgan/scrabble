@@ -1,0 +1,6 @@
+.ven/
+.vscode/
+__pycache__/
+env/
+scrabble.pyc
+
