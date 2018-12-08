@@ -1,7 +1,21 @@
 class Scrabble:
     def __init__(self):
-        self.board = self.get_board()
+        self.value_board = self.get_value_board()
         self.dct = self.build_dct_from_file("dict.txt")
+        self.board = []
+        self.tiles = ["ABCDEFG"]
+
+        self.tile_values = {"a": 1, "b": 3, "c": 3, "d": 2, "e": 1,
+                            "f": 4, "g": 2, "h": 4, "i": 1, "j": 8,
+                            "k": 5, "l": 1, "m": 3, "n": 1, "o": 1,
+                            "p": 3, "q": 10, "r": 1, "s": 1, "t": 1,
+                            "u": 1, "v": 1, "w": 4, "x": 8, "y": 4,
+                            "z": 10}
+
+        for i in range(15):
+            self.board.append([])
+            for j in range(15):
+                self.board[i].append("*")
 
     def build_dct_from_file(self, filename):
         print("reading dctionary...")
@@ -87,8 +101,65 @@ class Scrabble:
                 if i == len(word) - 1:
                     super_tree[c][1] = True
         return suffix_tree
+    
+    def get_legal_words(self, i, j):
+        template_str = "".join(self.board[i][j:15])
+        words = self.get_all_words(self.tiles, template_str)
 
-    def get_board(self):
+        legal_words = {}
+
+        for word in words:
+            if self.board[i][j+len(word)] == "*": # don't go RIGHT NEXT to an existing word
+                score = self.place_word(word, i, j)
+                if score > 0:
+                    legal_words[word] = score
+                self.place_word(template_str, i, j)
+
+    def place_word(self, word, row, col):
+        word_ind = 0
+
+        for i in range(col, 15):
+            if word_ind >= len(word):
+                break
+
+            if self.board[row][i] == "*":
+                up_str = ""
+                down_str = ""
+                for j in range(i-1, -1, -1):
+                    if self.board[j][i] == "*":
+                        break
+                    up_str += self.board[j][i]
+                up_str = up_str[::-1] 
+                for j in range(i+1, 15):
+                    if self.board[j][i] == "*":
+                        break
+                    down_str += self.board[j][i]
+                new_word = up_str + word[word_ind] + down_str
+                if len(new_word) > 1 and self.is_word(new_word):
+                    score += self.score_word(new_word)
+        
+        word_ind += 1
+
+        return 1
+
+    def rotate_board(self):
+        new_board = []
+        for i in range(15):
+            new_board.append([])
+            for j in range(15):
+                new_board[i].append("*")
+
+        for i in range(15):
+            for j in range(15):
+                new_board[i][j] = self.board[j][i]
+    
+    def score_word(self, word):
+        score = 0
+        for c in word:
+            score += self.tile_values[c]
+        return score
+
+    def get_value_board(self):
         ST = 1
         DL = 2
         DW = 3
