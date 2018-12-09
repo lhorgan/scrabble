@@ -1,16 +1,51 @@
 <html>
     <head>
-        <script src="/static/scrabble.js?ver=1"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+            <script src="/static/scrabble.js?ver=19"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+        <style>
+            .square {
+                width: 30px;
+                height: 30px;
+                text-align: center;
+            }
+            
+            .TW {
+                background-color:red;
+            }
+
+            .DL {
+                background-color: lightblue;
+            }
+
+            .DW {
+                background-color:lightcoral;
+            }
+            
+            .TL {
+                background-color: darkcyan;
+            }
+
+            .tiles {
+                background-color: burlywood;
+                width: 450px;
+                height: 50px;
+                font-size: 40px;
+                text-align: center;
+            }
+        </style>
         
         <title>Scrabble</title>
     </head>
 
     <body>
-        <div id="board-container"></div>
+        <div align="center" id="board-container"></div>
+        <div align="center" id="tiles-container">
+            <input type="text" maxlength="7" class="tiles" />
+        </div>
 
         <script>
             $("#board-container").append(buildBoard());
-        </script>        
+        </script>
     </body>
 </html>

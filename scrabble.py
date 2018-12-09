@@ -172,7 +172,7 @@ class Scrabble:
                  [ST, ST, ST, ST, DW, ST, ST, ST, ST, ST, DW, ST, ST, ST, ST],
                  [ST, TL, ST, ST, ST, TL, ST, ST, ST, TL, ST, ST, ST, TL, ST],
                  [ST, ST, DL, ST, ST, ST, DL, ST, DL, ST, ST, ST, DL, ST, ST],
-                 [TW, ST, ST, DL, ST, ST, ST, ST, ST, ST, ST, DL, ST, ST, TW],
+                 [TW, ST, ST, DL, ST, ST, ST, DW, ST, ST, ST, DL, ST, ST, TW],
                  [ST, ST, DL, ST, ST, ST, DL, ST, DL, ST, ST, ST, DL, ST, ST],
                  [ST, TL, ST, ST, ST, TL, ST, ST, ST, TL, ST, ST, ST, TL, ST],
                  [ST, ST, ST, ST, DW, ST, ST, ST, ST, ST, DW, ST, ST, ST, ST],
