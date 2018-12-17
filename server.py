@@ -20,7 +20,10 @@ def getmove():
 
     if request.method=="POST":
         print("POSTED DATA")
-        print(request.get_json())
+        json_data = request.get_json()
+        s.board = json_data["board"]
+        s.tiles = json_data["tiles"]
+        s.pick_best_move()
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 

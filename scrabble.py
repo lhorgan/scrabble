@@ -104,43 +104,71 @@ class Scrabble:
     
     def get_legal_words(self, i, j):
         template_str = "".join(self.board[i][j:15])
+        print(template_str)
         words = self.get_all_words(self.tiles, template_str)
+        print(words)
+
+        print("\n\n")
 
         legal_words = {}
 
         for word in words:
-            if self.board[i][j+len(word)] == "*": # don't go RIGHT NEXT to an existing word
-                score = self.place_word(word, i, j)
+            if j+len(word) < 15 and self.board[i][j+len(word)] == "*": # don't go RIGHT NEXT to an existing word
+                score = self.score_word(word)#self.place_word(word, i, j)
                 if score > 0:
                     legal_words[word] = score
-                self.place_word(template_str, i, j)
+                #self.place_word(template_str, i, j)
+        
+        return legal_words
+
+    def pick_best_move(self):
+        best_i = 0
+        best_j = 0
+        best_word = ""
+        best_word_score = -1
+
+        for i in range(15):
+            for j in range(15):
+                legal_words = self.get_legal_words(i, j)
+                for w in legal_words:
+                    #print(w + ", " + str(legal_words[w]))
+                    if legal_words[w] > best_word_score:
+                        best_word_score = legal_words[w]
+                        best_word_i = i
+                        best_word_j = j
+                        best_word = w
+        
+        print("%s %i (%i, %i)" % (best_word,best_word_score,  best_word_i, best_word_j))
+        return best_word
+                
 
     def place_word(self, word, row, col):
         word_ind = 0
+        score = 0
 
-        for i in range(col, 15):
-            if word_ind >= len(word):
-                break
+        # for i in range(col, 15):
+        #     if word_ind >= len(word):
+        #         break
 
-            if self.board[row][i] == "*":
-                up_str = ""
-                down_str = ""
-                for j in range(i-1, -1, -1):
-                    if self.board[j][i] == "*":
-                        break
-                    up_str += self.board[j][i]
-                up_str = up_str[::-1] 
-                for j in range(i+1, 15):
-                    if self.board[j][i] == "*":
-                        break
-                    down_str += self.board[j][i]
-                new_word = up_str + word[word_ind] + down_str
-                if len(new_word) > 1 and self.is_word(new_word):
-                    score += self.score_word(new_word)
+        #     if self.board[row][i] == "*":
+        #         up_str = ""
+        #         down_str = ""
+        #         for j in range(i-1, -1, -1):
+        #             if self.board[j][i] == "*":
+        #                 break
+        #             up_str += self.board[j][i]
+        #         up_str = up_str[::-1] 
+        #         for j in range(i+1, 15):
+        #             if self.board[j][i] == "*":
+        #                 break
+        #             down_str += self.board[j][i]
+        #         new_word = up_str + word[word_ind] + down_str
+        #         if len(new_word) > 1 and self.is_word(new_word):
+        #             score += self.score_word(new_word)
         
-        word_ind += 1
+        #     word_ind += 1
 
-        return 1
+        return self.score_word(word)
 
     def rotate_board(self):
         new_board = []

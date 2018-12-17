@@ -1,6 +1,6 @@
 <html>
     <head>
-            <script src="/static/scrabble.js?ver=19"></script>
+            <script src="/static/scrabble.js?ver=21"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
         <style>
@@ -26,7 +26,7 @@
                 background-color: darkcyan;
             }
 
-            .tiles {
+            #tiles {
                 background-color: burlywood;
                 width: 450px;
                 height: 50px;
@@ -41,7 +41,7 @@
     <body>
         <div align="center" id="board-container"></div>
         <div align="center" id="tiles-container">
-            <input type="text" maxlength="7" class="tiles" />
+            <input type="text" maxlength="7" id="tiles" />
         </div>
 
         <script>

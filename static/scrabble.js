@@ -62,6 +62,7 @@ function requestMove() {
     console.log(data);
     $.ajax({
         dataType: "json",
+        type: "post",
         contentType: 'application/json;charset=UTF-8',
         url: "/requestmove",
         data: JSON.stringify(data),
