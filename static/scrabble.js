@@ -68,6 +68,21 @@ function requestMove() {
         data: JSON.stringify(data),
         success: (res) => {
             console.log(res);
+            let word = res["word"];
+            let row = res["row"];
+            let col= res["col"];
+            let horiz = res["horiz"];
+            
+            for(let i = 0; i < word.length; i++) {
+                let cellID = "t-" + row + "-" + col;
+                $("#" + cellID).val(word[i]);
+                if(horiz) {
+                    col++;
+                }
+                else {
+                    row++;
+                }
+            }
         }
     });
 }

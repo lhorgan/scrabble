@@ -17,15 +17,20 @@ def home():
 @app.route("/requestmove", methods=['GET', 'POST'])
 def getmove():
     print("GET MOVE CALLED")
+    res = {'success': True}
 
     if request.method=="POST":
         print("POSTED DATA")
         json_data = request.get_json()
         s.board = json_data["board"]
         s.tiles = json_data["tiles"]
-        s.pick_best_move()
+        word, row, col, horiz = s.pick_best_move()
+        res["word"] = word
+        res["row"] = row
+        res["col"] = col
+        res["horiz"] = horiz
 
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+    return json.dumps(res), 200, {'ContentType':'application/json'} 
 
 if __name__ == "__main__":
     app.run()
