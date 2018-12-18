@@ -1,7 +1,7 @@
 class Scrabble:
     def __init__(self):
         self.value_board = self.get_value_board()
-        self.dct = self.build_dct_from_file("dict2.txt")
+        self.dct = self.build_dct_from_file("10k.txt")
         self.board = []
         self.tiles = ["ABCDEFG"]
 
